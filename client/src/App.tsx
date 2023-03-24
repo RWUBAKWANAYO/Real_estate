@@ -1,11 +1,11 @@
 import {
-  Refine, GitHubBanner, Authenticated
+  Refine, Authenticated
   , AuthBindings
 } from '@refinedev/core';
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import {
-  WelcomePage, AuthPage, ErrorComponent
+  ErrorComponent
   , notificationProvider
   , RefineSnackbarProvider
 } from '@refinedev/mui';
@@ -120,7 +120,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
