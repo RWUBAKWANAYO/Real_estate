@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useLogin } from "@refinedev/core";
 import { CredentialResponse } from "../interfaces/google";
+import { ThemedLogo } from "assets";
+import { Box, Container } from "@mui/system";
 
 // Todo: Update your Google Client ID here
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID!;
@@ -43,15 +45,32 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <GoogleButton />
-    </div>
+    <Box>
+      <Container
+        component="main"
+        maxWidth='xs'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          height: '100vh',
+
+        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <div><ThemedLogo /></div>
+          <Box mt={4}>
+            <GoogleButton />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+
+
   );
 };

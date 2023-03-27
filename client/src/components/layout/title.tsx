@@ -6,6 +6,7 @@ import {
   useRouterType,
 } from "@refinedev/core";
 import { Button } from "@mui/material";
+import { logo, ThemedLogo } from "assets";
 
 export const Title: React.FC<TitleProps> = ({ collapsed }) => {
   const routerType = useRouterType();
@@ -19,17 +20,13 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => {
       <ActiveLink to="/">
         {collapsed ? (
           <img
-            src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine-mini.svg"
-            alt="Refine"
+            src={logo}
+            alt='app logo'
             width="28px"
             style={{ maxHeight: "38px" }}
           />
         ) : (
-          <img
-            src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine.svg"
-            alt="Refine"
-            width="140px"
-          />
+          <ThemedLogo />
         )}
       </ActiveLink>
     </Button>
