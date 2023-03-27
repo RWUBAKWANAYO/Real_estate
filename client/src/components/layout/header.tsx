@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
   const showUserInfo = user && (user.name || user.avatar);
 
   return (
-    <AppBar color="default" position="sticky" elevation={1}>
+    <AppBar color="default" position="sticky" elevation={1} sx={{ boxShadow: "0px 1px 1px -2px rgba(0,0,0,0.1), 0px 1px 1px -2px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)" }}>
       <Toolbar>
         <Stack
           direction="row"

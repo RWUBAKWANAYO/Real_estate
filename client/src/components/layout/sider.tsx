@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ColorModeContext } from '../../contexts/color-mode';
 import {
   CanAccess,
   ITreeMenu,
@@ -71,7 +72,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
   });
 
   const [open, setOpen] = useState<{ [k: string]: any }>({});
-
+  const { mode } = useContext(ColorModeContext);
   React.useEffect(() => {
     setOpen((previous) => {
       const previousKeys: string[] = Object.keys(previous);
@@ -203,18 +204,23 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
                 py: isNested ? 1.25 : 1,
                 "&.Mui-selected": {
                   "&:hover": {
-                    backgroundColor: "transparent",
+                    backgroundColor: isSelected ? '#1e36e8' : "transparent",
                   },
-                  backgroundColor: "transparent",
+                  backgroundColor: isSelected ? '#475be8' : "transparent",
                 },
                 justifyContent: "center",
+                margin: '10px auto',
+                borderRadius: '12px',
+                minHeight: '56px',
+                width: '90%'
+
               }}
             >
               <ListItemIcon
                 sx={{
                   justifyContent: "center",
                   minWidth: 36,
-                  color: "secondary.contrastText",
+                  color: isSelected ? '#fff' : (mode === 'dark' ? '#fff' : "rgba(0, 0, 0, 0.54)"),
                 }}
               >
                 {icon ?? <ListOutlined />}
@@ -225,6 +231,8 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
                   noWrap: true,
                   fontSize: "14px",
                   fontWeight: isSelected ? "bold" : "normal",
+                  color: isSelected ? '#fff' : (mode === 'dark' ? '#fff' : "rgba(0, 0, 0, 0.54)"),
+                  marginLeft: '10px'
                 }}
               />
             </ListItemButton>
@@ -311,13 +319,19 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
       <ListItemButton
         key="logout"
         onClick={handleLogout}
-        sx={{ justifyContent: "center" }}
+        sx={{
+          justifyContent: "center",
+          margin: '10px auto',
+          borderRadius: '12px',
+          minHeight: '56px',
+          width: '90%'
+        }}
       >
         <ListItemIcon
           sx={{
             justifyContent: "center",
             minWidth: 36,
-            color: "secondary.contrastText",
+            color: mode === 'dark' ? '#fff' : "rgba(0, 0, 0, 0.54)",
           }}
         >
           <Logout />
@@ -327,6 +341,8 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
           primaryTypographyProps={{
             noWrap: true,
             fontSize: "14px",
+            paddingLeft: '10px',
+            color: mode === 'dark' ? '#fff' : "rgba(0, 0, 0, 0.54)",
           }}
         />
       </ListItemButton>
@@ -391,7 +407,6 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             display: { sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               width: 256,
-              bgcolor: "secondary.main",
             },
           }}
         >
@@ -414,8 +429,8 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               width: drawerWidth,
-              bgcolor: "secondary.main",
               overflow: "hidden",
+              boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 65px 1px 0px rgba(0,0,0,0.14), 0px 65px 3px 0px rgba(0,0,0,0.12)",
               transition: "width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
             },
           }}
@@ -442,11 +457,14 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
           </Box>
           <Button
             sx={{
-              background: "rgba(0,0,0,.5)",
+              background: "#475be8",
               color: "secondary.contrastText",
               textAlign: "center",
               borderRadius: 0,
               borderTop: "1px solid #ffffff1a",
+              "&:hover": {
+                background: "#1e36e8",
+              }
             }}
             fullWidth
             size="large"
