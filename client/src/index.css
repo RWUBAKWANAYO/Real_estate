@@ -6,6 +6,10 @@ a {
     text-decoration: none !important;
 }
 
+.apexcharts-legend-series span {
+    color: #999 !important;
+}
+
 .my_profile-bg {
     width: 340px;
     border-top-left-radius: 15px;
