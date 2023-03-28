@@ -480,9 +480,9 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             top: "64px",
             left: "0px",
             borderRadius: "0 6px 6px 0",
-            bgcolor: "secondary.main",
+            bgcolor: "#475be8",
             zIndex: 1199,
-            width: "36px",
+            width: "36px"
           }}
         >
           <IconButton

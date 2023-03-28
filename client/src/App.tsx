@@ -1,34 +1,50 @@
-import {
-  Refine, Authenticated
-  , AuthBindings
-} from '@refinedev/core';
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+import { Refine, Authenticated, AuthBindings } from '@refinedev/core';
+import { RefineKbar, RefineKbarProvider } from '@refinedev/kbar';
 
-import {
-  ErrorComponent
-  , notificationProvider
-  , RefineSnackbarProvider
-} from '@refinedev/mui';
+import { ErrorComponent, notificationProvider, RefineSnackbarProvider } from '@refinedev/mui';
 
-import dataProvider from "@refinedev/simple-rest";
-import { CssBaseline, GlobalStyles } from "@mui/material";
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier } from "@refinedev/react-router-v6";
-import axios, { AxiosRequestConfig } from "axios";
-import { BlogPostList, BlogPostCreate, BlogPostEdit, BlogPostShow } from "pages/blog-posts";
-import { CategoryList, CategoryCreate, CategoryEdit, CategoryShow } from "pages/categories";
-import { ColorModeContextProvider } from "./contexts/color-mode";
-import { Login } from "pages/login";
-import { CredentialResponse } from "interfaces/google";
-import { parseJwt } from "utils/parse-jwt";
-import { Layout, Header, Sider, Title } from "components/layout";
-import { VillaOutlined } from '@mui/icons-material';
+import dataProvider from '@refinedev/simple-rest';
+import { CssBaseline, GlobalStyles } from '@mui/material';
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import routerBindings, {
+  NavigateToResource,
+  CatchAllNavigate,
+  UnsavedChangesNotifier,
+} from '@refinedev/react-router-v6';
+import axios, { AxiosRequestConfig } from 'axios';
+import {
+  Login,
+  Home,
+  PropertyList,
+  PropertyCreate,
+  PropertyEdit,
+  PropertyShow,
+  AgentList,
+  AgentShow,
+  MyProfile,
+  Messages,
+  Reviews,
+} from 'pages';
+import { ColorModeContextProvider } from './contexts/color-mode';
+// import { Login } from "pages/login";
+import { CredentialResponse } from 'interfaces/google';
+import { parseJwt } from 'utils/parse-jwt';
+import { Layout, Header, Sider, Title } from 'components/layout';
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutline,
+  DashboardOutlined,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from '@mui/icons-material';
+import { MuiInferencer } from '@refinedev/inferencer/mui';
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (request.headers) {
-    request.headers["Authorization"] = `Bearer ${token}`;
+    request.headers['Authorization'] = `Bearer ${token}`;
   } else {
     request.headers = {
       Authorization: `Bearer ${token}`,
@@ -38,30 +54,25 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   return request;
 });
 
-
-
 function App() {
-
-
-
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
 
       if (profileObj) {
         localStorage.setItem(
-          "user",
+          'user',
           JSON.stringify({
             ...profileObj,
             avatar: profileObj.picture,
-          }),
+          })
         );
 
-        localStorage.setItem("token", `${credential}`);
+        localStorage.setItem('token', `${credential}`);
 
         return {
           success: true,
-          redirectTo: "/",
+          redirectTo: '/',
         };
       }
 
@@ -70,11 +81,11 @@ function App() {
       };
     },
     logout: async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
-      if (token && typeof window !== "undefined") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+      if (token && typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         axios.defaults.headers.common = {};
         window.google?.accounts.id.revoke(token, () => {
           return {};
@@ -83,7 +94,7 @@ function App() {
 
       return {
         success: true,
-        redirectTo: "/login",
+        redirectTo: '/login',
       };
     },
     onError: async (error) => {
@@ -91,7 +102,7 @@ function App() {
       return { error };
     },
     check: async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       if (token) {
         return {
@@ -101,14 +112,14 @@ function App() {
 
       return {
         authenticated: false,
-        error: new Error("Not authenticated"),
+        error: new Error('Not authenticated'),
         logout: true,
-        redirectTo: "/login",
+        redirectTo: '/login',
       };
     },
     getPermissions: async () => null,
     getIdentity: async () => {
-      const user = localStorage.getItem("user");
+      const user = localStorage.getItem('user');
       if (user) {
         return JSON.parse(user);
       }
@@ -117,40 +128,50 @@ function App() {
     },
   };
 
-
   return (
     <BrowserRouter>
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
-          <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
+          <GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
           <RefineSnackbarProvider>
-            <Refine dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+            <Refine
+              dataProvider={dataProvider('https://api.fake-rest.refine.dev')}
               notificationProvider={notificationProvider}
               routerProvider={routerBindings}
               authProvider={authProvider}
               resources={[
-
                 {
-                  name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
-                  icon: <VillaOutlined />,
-                  meta: {
-                    canDelete: true,
-                  },
+                  name: 'dashboard',
+                  options: { label: 'Dashboard' },
+                  list: MuiInferencer,
+                  icon: <DashboardOutlined />,
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
-                  meta: {
-                    canDelete: true,
-                  },
+                  name: 'properties',
+                  list: MuiInferencer,
+                  icon: <VillaOutlined />,
+                },
+                {
+                  name: 'agents',
+                  list: MuiInferencer,
+                  icon: <PeopleAltOutlined />,
+                },
+                {
+                  name: 'reviews',
+                  list: MuiInferencer,
+                  icon: <StarOutlineRounded />,
+                },
+                {
+                  name: 'messages',
+                  list: MuiInferencer,
+                  icon: <ChatBubbleOutline />,
+                },
+                {
+                  name: 'my-profile',
+                  options: { label: 'My Profile' },
+                  list: MuiInferencer,
+                  icon: <AccountCircleOutlined />,
                 },
               ]}
               options={{
@@ -161,30 +182,28 @@ function App() {
               <Routes>
                 <Route
                   element={
-                    <Authenticated
-                      fallback={<CatchAllNavigate to="/login" />}
-                    >
+                    <Authenticated fallback={<CatchAllNavigate to='/login' />}>
                       <Layout Header={Header} Sider={Sider} Title={Title}>
                         <Outlet />
                       </Layout>
                     </Authenticated>
                   }
                 >
-                  <Route index element={
-                    <NavigateToResource resource="blog_posts" />
-                  } />
-                  <Route path="/blog-posts">
-                    <Route index element={<BlogPostList />} />
-                    <Route path="create" element={<BlogPostCreate />} />
-                    <Route path="edit/:id" element={<BlogPostEdit />} />
-                    <Route path="show/:id" element={<BlogPostShow />} />
+                  <Route index element={<NavigateToResource resource='dashboard' />} />
+                  <Route path='/dashboard' element={<Home />} />
+                  <Route path='/properties'>
+                    <Route index element={<PropertyList />} />
+                    <Route path='create' element={<PropertyCreate />} />
+                    <Route path='edit/:id' element={<PropertyEdit />} />
+                    <Route path='show/:id' element={<PropertyShow />} />
                   </Route>
-                  <Route path="/categories">
-                    <Route index element={<CategoryList />} />
-                    <Route path="create" element={<CategoryCreate />} />
-                    <Route path="edit/:id" element={<CategoryEdit />} />
-                    <Route path="show/:id" element={<CategoryShow />} />
+                  <Route path='/agents'>
+                    <Route index element={<AgentList />} />
+                    <Route path='show/:id' element={<AgentShow />} />
                   </Route>
+                  <Route path='/messages' element={<Messages />} />
+                  <Route path='/reviews' element={<Reviews />} />
+                  <Route path='/my-profile' element={<MyProfile />} />
                 </Route>
                 <Route
                   element={
@@ -193,7 +212,7 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route path="/login" element={<Login />} />
+                  <Route path='/login' element={<Login />} />
                 </Route>
                 <Route
                   element={
@@ -204,21 +223,19 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route path="*" element={<ErrorComponent />} />
+                  <Route path='*' element={<ErrorComponent />} />
                 </Route>
               </Routes>
-
 
               <RefineKbar />
               <UnsavedChangesNotifier />
             </Refine>
           </RefineSnackbarProvider>
-
-
         </ColorModeContextProvider>
       </RefineKbarProvider>
     </BrowserRouter>
   );
-};
+}
 
 export default App;
+
