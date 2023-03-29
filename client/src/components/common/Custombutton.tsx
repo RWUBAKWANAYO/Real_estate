@@ -23,7 +23,7 @@ const CustomButton = ({
 				fontWeight: 600,
 				gap: '10px',
 				textTransform: 'capitalize',
-				':&hover': {
+				'&:hover': {
 					backgroundColor,
 					opacity: 0.9,
 				},

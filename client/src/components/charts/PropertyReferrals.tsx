@@ -12,10 +12,10 @@ interface ProgressBarProps extends currentTheme {
 const ProgressBar = ({ title, percentage, color, mode }: ProgressBarProps) => (
 	<Box width='100%'>
 		<Stack direction='row' alignItems='center' justifyContent='space-between'>
-			<Typography fontSize={14} fontWeight={500} color={mode === 'dark' ? '#6F767E' : '#808191'}>
+			<Typography fontSize={14} color={mode === 'dark' ? '#6F767E' : '#808191'}>
 				{title}
 			</Typography>
-			<Typography fontSize={14} fontWeight={500} color={mode === 'dark' ? '#6F767E' : '#808191'}>
+			<Typography fontSize={14} color={mode === 'dark' ? '#6F767E' : '#808191'}>
 				{percentage}%
 			</Typography>
 		</Stack>

@@ -208,7 +208,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
 								sx={{
 									justifyContent: 'center',
 									minWidth: 36,
-									color: isSelected ? '#fff' : mode === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.54)',
+									color: isSelected ? '#fff' : mode === 'dark' ? '#6F767E' : '#808191',
 								}}
 							>
 								{icon ?? <ListOutlined />}
@@ -219,7 +219,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
 									noWrap: true,
 									fontSize: '14px',
 									fontWeight: isSelected ? 'bold' : 'normal',
-									color: isSelected ? '#fff' : mode === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.54)',
+									color: isSelected ? '#fff' : mode === 'dark' ? '#6F767E' : '#808191',
 									marginLeft: '10px',
 								}}
 							/>
@@ -319,7 +319,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
 					sx={{
 						justifyContent: 'center',
 						minWidth: 36,
-						color: mode === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.54)',
+						color: mode === 'dark' ? '#6F767E' : '#808191',
 					}}
 				>
 					<Logout />
@@ -330,7 +330,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
 						noWrap: true,
 						fontSize: '14px',
 						paddingLeft: '10px',
-						color: mode === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.54)',
+						color: mode === 'dark' ? '#6F767E' : '#808191',
 					}}
 				/>
 			</ListItemButton>
