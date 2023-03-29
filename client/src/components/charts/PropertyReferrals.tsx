@@ -1,15 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { currentTheme } from 'interfaces/theme';
 import React from 'react';
 import { propertyReferralsInfo } from '../../constants';
 
-interface currentTheme {
-	mode: string;
-}
-interface ProgressBarProps {
+interface ProgressBarProps extends currentTheme {
 	title: string;
 	percentage: number;
 	color: string;
-	mode: string;
 }
 
 const ProgressBar = ({ title, percentage, color, mode }: ProgressBarProps) => (

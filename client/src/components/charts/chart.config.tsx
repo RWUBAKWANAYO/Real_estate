@@ -67,6 +67,5 @@ export const TotalRevenueOptions: ApexOptions = {
 				return `$ ${val} thousands`;
 			},
 		},
-		// theme: 'light',
 	},
 };

@@ -16,3 +16,7 @@ declare module '@mui/material/styles' {
 			CustomTheme {}
 }
 /*eslint-enable */
+
+interface currentTheme {
+	mode: string!;
+}

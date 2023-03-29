@@ -3,10 +3,8 @@ import { ArrowCircleUpRounded } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
 import { TotalRevenueOptions, TotalRevenueSeries } from './chart.config';
+import { currentTheme } from 'interfaces/theme';
 
-interface currentTheme {
-	mode: string;
-}
 const TotalRevenue = ({ mode }: currentTheme) => {
 	return (
 		<Box
