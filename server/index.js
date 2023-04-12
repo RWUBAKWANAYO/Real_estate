@@ -14,7 +14,7 @@ app.use(express.json({ limit: '50mb' }));
 app.get('/', (req, res) => res.send({ message: 'Welcome to real estate server' }));
 
 app.use('/users', userRouter);
-app.use('api/v1/properties', propertyRouter);
+app.use('/api/v1/properties', propertyRouter);
 
 const startServer = async () => {
 	try {

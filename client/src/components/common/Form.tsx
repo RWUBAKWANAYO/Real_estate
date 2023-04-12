@@ -113,6 +113,7 @@ const Form = ({
 								required
 								inputProps={{ 'aria-label': 'without label' }}
 								defaultValue='apartment'
+								{...register('propertyType', { required: true })}
 							>
 								<MenuItem value='apartment'>Apartment</MenuItem>
 								<MenuItem value='villa'>Villa</MenuItem>

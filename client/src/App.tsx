@@ -61,7 +61,7 @@ function App() {
 			// save user to database
 
 			if (profileObj) {
-				const response = await fetch('http://localhost:8080/users', {
+				const response = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
@@ -152,7 +152,7 @@ function App() {
 					<GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
 					<RefineSnackbarProvider>
 						<Refine
-							dataProvider={dataProvider('https://api.fake-rest.refine.dev')}
+							dataProvider={dataProvider(`${process.env.REACT_APP_API_URL}/api/v1`)}
 							notificationProvider={notificationProvider}
 							routerProvider={routerBindings}
 							authProvider={authProvider}

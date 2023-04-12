@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const PropertyCreate = () => {
 	const navigate = useNavigate();
-	const { data: user } = useGetIdentity();
+	const { data: user } = useGetIdentity({ v3LegacyAuthProviderCompatible: true });
 	const [propertyImage, setPropertyImage] = useState({ name: '', url: '' });
 	const {
 		refineCore: { onFinish, formLoading },
@@ -32,9 +32,10 @@ export const PropertyCreate = () => {
 	};
 	const onFinishHandler = async (data: FieldValues) => {
 		if (!propertyImage.name) return alert('Please select an image');
-
-		await onFinish({ ...data, photo: propertyImage.url, email: data.email });
+		console.log('data:', data, user);
+		await onFinish({ ...data, photo: propertyImage.url, email: user.email });
 	};
+
 	return (
 		<Form
 			type='Create'
