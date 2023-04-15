@@ -13,7 +13,8 @@ const PropertyCard = ({ id, title, location, price, photo, mode }: NewPropertyCa
 			component={Link}
 			to={`/properties/${id}`}
 			sx={{
-				maxWidth: '327px',
+				maxWidth: { md: '327px', lg: '31.6%', xl: '327px' },
+				// maxWidth: '327px',
 				padding: '10px',
 				'&:hover': {
 					boxShadow:
