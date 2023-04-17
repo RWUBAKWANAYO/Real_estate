@@ -10,9 +10,9 @@ import {
 const router = express.Router();
 
 router.route('/').get(getAllProperties);
-router.route('/').post(createProperty);
 router.route('/:id').get(getPropertyDetails);
-router.route('/:id').get(deleteProperty);
-router.route('/:id').get(updateProperty);
+router.route('/').post(createProperty);
+router.route('/:id').delete(deleteProperty);
+router.route('/:id').patch(updateProperty);
 
 export default router;
