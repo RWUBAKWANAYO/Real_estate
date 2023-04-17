@@ -11,17 +11,15 @@ const PropertyCard = ({ id, title, location, price, photo, mode }: NewPropertyCa
 	return (
 		<Card
 			component={Link}
-			to={`/properties/${id}`}
+			to={`/properties/show/${id}`}
 			sx={{
 				maxWidth: { md: '327px', lg: '31.6%', xl: '327px' },
-				// maxWidth: '327px',
 				padding: '10px',
 				'&:hover': {
 					boxShadow:
 						'0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
 				},
 				cursor: 'pointer',
-				textDecoration: 'none',
 			}}
 			elevation={0}
 		>
