@@ -79,7 +79,26 @@ const createProperty = async (req, res) => {
 	}
 };
 
-const updateProperty = async (req, res) => {};
+const updateProperty = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { title, description, propertyType, location, price, photo } = req.body;
+
+		let photoUrl;
+
+		if (photo) photoUrl = await cloudinary.uploader.upload(photo, { folder: 'real_estate' });
+
+		const updates = { title, description, propertyType, location, price };
+
+		if (photoUrl) updates.photo = photoUrl.url;
+
+		await Property.findByIdAndUpdate({ _id: id }, updates);
+		res.status(200).json({ message: 'Property updated successfully' });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
 const deleteProperty = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -89,8 +108,6 @@ const deleteProperty = async (req, res) => {
 
 		const session = await mongoose.startSession();
 		session.startTransaction();
-		console.log('propertyToDelete', propertyToDelete);
-		console.log('session', session);
 		propertyToDelete.deleteOne({ session });
 		propertyToDelete.creator.allproperties.pull(propertyToDelete);
 
