@@ -1,18 +1,28 @@
 import React from 'react';
 import { Place } from '@mui/icons-material';
-import { Box, Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { PropertyCardProps } from 'interfaces/property';
 import { Link } from 'react-router-dom';
 
 interface NewPropertyCardProps extends PropertyCardProps {
 	mode: string;
+	colorCard?: string;
 }
-const PropertyCard = ({ id, title, location, price, photo, mode }: NewPropertyCardProps) => {
+const PropertyCard = ({
+	id,
+	title,
+	location,
+	price,
+	photo,
+	mode,
+	colorCard,
+}: NewPropertyCardProps) => {
 	return (
 		<Card
 			component={Link}
 			to={`/properties/show/${id}`}
 			sx={{
+				backgroundColor: colorCard === 'none' ? 'transparent' : '',
 				maxWidth: { md: '327px', lg: '31.6%', xl: '327px' },
 				padding: '10px',
 				'&:hover': {

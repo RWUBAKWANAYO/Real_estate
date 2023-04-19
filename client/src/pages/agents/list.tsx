@@ -7,7 +7,6 @@ export const AgentList = () => {
 	const { mode } = useContext(ColorModeContext);
 	const { data, isLoading, isError } = useList({ resource: 'users' });
 	const allAgents = data?.data ?? [];
-	console.log(allAgents);
 
 	if (isLoading) return <div>Loading</div>;
 	if (isError) return <div>Error</div>;
