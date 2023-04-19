@@ -152,7 +152,7 @@ function App() {
 					<GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
 					<RefineSnackbarProvider>
 						<Refine
-							dataProvider={dataProvider(`${process.env.REACT_APP_API_URL}/api/v1`)}
+							dataProvider={dataProvider(`${process.env.REACT_APP_API_URL}`)}
 							notificationProvider={notificationProvider}
 							routerProvider={routerBindings}
 							authProvider={authProvider}

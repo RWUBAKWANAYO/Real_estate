@@ -52,7 +52,11 @@ const PropertyCard = ({ id, title, location, price, photo, mode }: NewPropertyCa
 						<Place
 							sx={{ fontSize: 18, color: mode === 'dark' ? '#EFEFEF' : '#11142D', margin: 0.5 }}
 						/>
-						<Typography color={'dark' ? '#6F767E' : '#808191'} fontSize={13} fontWeight={300}>
+						<Typography
+							color={mode === 'dark' ? '#6F767E' : '#808191'}
+							fontSize={13}
+							fontWeight={300}
+						>
 							{location}
 						</Typography>
 					</Stack>
