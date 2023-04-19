@@ -12,7 +12,12 @@ const AgentCard = ({ id, name, email, avatar, noOfProperties, mode }: NewAgentCa
 	const { data: currentUser } = useGetIdentity();
 
 	//@ts-ignore
-	const generateLink = () => (currentUser.email === email ? '/my-profile' : `agent/show/${id}`);
+	const generateLink = () => (currentUser.email === email ? '/my-profile' : `/agents/show/${id}`);
+	const checkImage = (url: string) => {
+		const img = new Image();
+		img.src = url;
+		return img.width !== 0 && img.height !== 0;
+	};
 	const InfoBar = ({ icon, name }: InfoBarProps) => (
 		<Stack
 			flex={1}
@@ -35,17 +40,23 @@ const AgentCard = ({ id, name, email, avatar, noOfProperties, mode }: NewAgentCa
 				gap: '20px',
 				padding: '20px',
 				'&:hover': {
-					boxShadow:
-						'0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+					boxShadow: '0 22px 45px 2px rgba(0,0,0,0.1)',
 				},
 			}}
 		>
 			<img
-				src={avatar}
+				src={
+					checkImage(avatar)
+						? avatar
+						: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png'
+				}
 				alt='user'
 				width={90}
 				height={90}
-				style={{ borderRadius: 8, objectFit: 'cover' }}
+				style={{
+					borderRadius: 8,
+					objectFit: 'cover',
+				}}
 			/>
 			<Stack direction='column' justifyContent='space-between' flex={1} gap={{ xs: 4, sm: 2 }}>
 				<Stack gap={2} direction='row' flexWrap='wrap' alignItems='center'>
